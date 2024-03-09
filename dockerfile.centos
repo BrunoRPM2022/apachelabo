@@ -1,0 +1,16 @@
+FROM centos:latest
+
+# Instale o servidor web Apache
+RUN yum install -y httpd
+
+# Copie o arquivo de configuração do Apache com a porta modificada
+COPY httpd.conf /etc/httpd/conf/httpd.conf
+
+# Copie as páginas da web para o diretório padrão do Apache
+COPY index.html /var/www/html/index.html
+
+# Exponha a porta 8443
+EXPOSE 8443
+
+# Inicie o Apache no primeiro plano
+CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
